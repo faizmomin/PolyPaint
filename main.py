@@ -1,19 +1,44 @@
-from PIL import Image
+# imports
+import PIL.Image
+from PIL import ImageTk
+from tkinter import *
 
- # hi
+x1 = 0
+y1 = 0
+x2 = 0
+y2 = 0
 
-# Create an Image object from an Image
+def mouseDown(event):
+    print ("clicked at", event.x, event.y)
+    global x1, x2
+    x1 = event.x
+    y1 = event.y
 
-imageObject  = Image.open("./whale.jpg")
+def mouseUp(event):
+    print ("released at", event.x, event.y)
+    x2 = event.x
+    y2 = event.y
 
- 
+    print(x1, y1, x2, y2)
+    cropped = img.crop((x1, y1, x2, y2))
+    cropped.show()
 
-# Crop the iceberg portion
 
-cropped = imageObject.crop((100,30,400,300))
 
- 
+root = Tk()
 
-# Display the cropped portion
+fp = open("./whale.jpg","rb")
+img = PIL.Image.open(fp)
 
-imageObject.show()
+imgWidth, imgHeight = img.size
+
+
+imageCanvas = Canvas(root, bg="white", height=imgHeight, width=imgWidth)
+imageCanvas.bind("<Button-1>", mouseDown)
+imageCanvas.bind("<ButtonRelease-1>", mouseUp)
+imageCanvas.pack()
+
+whale = ImageTk.PhotoImage(PIL.Image.open(fp)) 
+imageCanvas.create_image(0, 0, anchor=NW, image=whale)
+
+root.mainloop()
