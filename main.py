@@ -8,6 +8,7 @@ y1 = 0
 x2 = 0
 y2 = 0
 
+# funtions for mouse actions
 def mouseDown(event):
     print ("clicked at", event.x, event.y)
     global x1, x2
@@ -23,16 +24,11 @@ def mouseUp(event):
     cropped = img.crop((x1, y1, x2, y2))
     cropped.show()
 
-
-
-root = Tk()
-
 fp = open("./whale.jpg","rb")
 img = PIL.Image.open(fp)
-
 imgWidth, imgHeight = img.size
 
-
+root = Tk()
 imageCanvas = Canvas(root, bg="white", height=imgHeight, width=imgWidth)
 imageCanvas.bind("<Button-1>", mouseDown)
 imageCanvas.bind("<ButtonRelease-1>", mouseUp)
