@@ -5,6 +5,7 @@
 import PIL.Image
 from PIL import ImageTk
 from tkinter import *
+import sys
 
 # global variables used for cropping coordinates
 x1 = 0
@@ -49,7 +50,10 @@ def cropImage(x1, x2, y1, y2):
     return cropped
 
 # opens image file
-fp = open("./whale.jpg","rb")
+imageFile = "./whale.jpg"
+if(len(sys.argv) == 2):
+    imageFile = "./" + sys.argv[1]
+fp = open(imageFile,"rb")
 img = PIL.Image.open(fp)
 imgWidth, imgHeight = img.size
 
