@@ -11,17 +11,25 @@ y2 = 0
 # funtions for mouse actions
 def mouseDown(event):
     print ("clicked at", event.x, event.y)
-    global x1, x2
+    global x1,y1,x2,y2
     x1 = event.x
     y1 = event.y
 
 def mouseUp(event):
     print ("released at", event.x, event.y)
+    global x1,y1,x2,y2
     x2 = event.x
     y2 = event.y
 
     print(x1, y1, x2, y2)
-    cropped = img.crop((x1, y1, x2, y2))
+    if(y2 < y1):
+        temp = x1
+        x1 = x2
+        x2 = temp
+        temp = y1
+        y1 = y2
+        y2 = temp
+    cropped = img.crop((min(x1,x2), min(y1,y2), max(x1,x2), max(y1,y2)))
     cropped.show()
 
 fp = open("./whale.jpg","rb")
