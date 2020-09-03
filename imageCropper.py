@@ -15,7 +15,7 @@ y2 = 0
 # funtions for mouse actions
 def mouseDown(event):
     #print ("clicked at", event.x, event.y)
-    global x1,y1,x2,y2
+    global x1,y1
     x1 = event.x
     y1 = event.y
 
@@ -25,6 +25,12 @@ def mouseUp(event):
     x2 = event.x
     y2 = event.y
     cropImage(x1, x2, y1, y2)
+    x1, y1, x2, y2 = 0, 0, 0, 0
+    imageCanvas.coords(cursor_rect, 0, 0, 0, 0)
+
+def mouseMove(event):
+    global cursor_rect, imageCanvas, x1, y1
+    imageCanvas.coords(cursor_rect, x1, y1, event.x, event.y)
 
 # functions that is used to crop image
 def cropImage(x1, x2, y1, y2):
@@ -52,9 +58,11 @@ root = Tk()
 imageCanvas = Canvas(root, bg="white", height=imgHeight, width=imgWidth)
 imageCanvas.bind("<Button-1>", mouseDown)
 imageCanvas.bind("<ButtonRelease-1>", mouseUp)
+imageCanvas.bind("<B1-Motion>", mouseMove)
 imageCanvas.pack()
 
 whale = ImageTk.PhotoImage(PIL.Image.open(fp)) 
 imageCanvas.create_image(0, 0, anchor=NW, image=whale)
+cursor_rect = imageCanvas.create_rectangle(0,0,0,0)
 
 root.mainloop()
