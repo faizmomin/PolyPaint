@@ -1,25 +1,28 @@
 # imageCropper
-# Tool that allows user to crop the chosen image
+# Tool that allows the user to crop the chosen image
 
-# imports
+# Imports
 import PIL.Image
 from PIL import ImageTk
 from tkinter import *
 import sys
 
-# global variables used for cropping coordinates
+# Global variables used for cropping coordinates
 x1 = 0
 y1 = 0
 x2 = 0
 y2 = 0
 
-# funtions for mouse actions
+# Funtions for mouse actions
+
+# Tracks click position
 def mouseDown(event):
     #print ("clicked at", event.x, event.y)
     global x1,y1
     x1 = event.x
     y1 = event.y
 
+# Tracks release position
 def mouseUp(event):
     #print ("released at", event.x, event.y)
     global x1,y1,x2,y2
@@ -29,11 +32,13 @@ def mouseUp(event):
     x1, y1, x2, y2 = 0, 0, 0, 0
     imageCanvas.coords(cursor_rect, 0, 0, 0, 0)
 
+# Tracks movement
 def mouseMove(event):
     global cursor_rect, imageCanvas, x1, y1
     imageCanvas.coords(cursor_rect, x1, y1, event.x, event.y)
 
-# functions that is used to crop image
+# cropImage(x1, x2, y1, y2): Crops the image based on coordinates
+# returns: cropped image
 def cropImage(x1, x2, y1, y2):
     #print(x1, y1, x2, y2)
     if(y2 < y1):
@@ -44,12 +49,12 @@ def cropImage(x1, x2, y1, y2):
         y1 = y2
         y2 = temp
     
-    # crops image
+    # Crops image
     cropped = img.crop((min(x1,x2), min(y1,y2), max(x1,x2), max(y1,y2)))
     cropped.show()
     return cropped
 
-# opens image file
+# Opens image file
 imageFile = "./whale.jpg"
 if(len(sys.argv) == 2):
     imageFile = "./" + sys.argv[1]
@@ -57,7 +62,7 @@ fp = open(imageFile,"rb")
 img = PIL.Image.open(fp)
 imgWidth, imgHeight = img.size
 
-# creates a canvas to display image
+# Creates a canvas to display image
 root = Tk()
 imageCanvas = Canvas(root, bg="white", height=imgHeight, width=imgWidth)
 imageCanvas.bind("<Button-1>", mouseDown)
