@@ -1,7 +1,6 @@
 # PolyPaint
 
-##ONGOING!
-
+ONGOING!
 
 Created by University of Waterloo students: 
 
