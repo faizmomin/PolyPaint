@@ -11,6 +11,9 @@ Mark Chen (Comp Sci)
 Faiz Momin (Soft Eng)
 
 
+This is a program that will take any picture and transform it into plain shape art using the 4 Colour Theorem.
+We will let the user use 6 colours as 4 can get a little basic...
+
 
 ![](final_similar_target.jpg)
 
