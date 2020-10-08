@@ -2,7 +2,8 @@
 
 ONGOING!
 
-Python 3 - Tkinter - PyTorch
+Python 3 - Tkinter - TensorFlow
+
 
 Created by University of Waterloo students: 
 
